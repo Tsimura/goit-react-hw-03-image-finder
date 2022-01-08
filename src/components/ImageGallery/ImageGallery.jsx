@@ -4,13 +4,12 @@ import ImageGalleryItem from 'components/ImageGalleryItem/ImageGalleryItem';
 const ImageGallery = ({ images }) => {
   return (
     <ul style={{ display: 'flex', flexWrap: 'wrap' }}>
-      {images.map(image => (
+      {images.map(({ id, webformatURL, largeImageURL, tags }) => (
         <ImageGalleryItem
-          key={image.id}
-          //   image={image}
-          webformatURL={image.webformatURL}
-          largeImageURL={image.largeImageURL}
-          tags={image.tags}
+          key={id}
+          webformatURL={webformatURL}
+          largeImageURL={largeImageURL}
+          tags={tags}
         />
       ))}
     </ul>

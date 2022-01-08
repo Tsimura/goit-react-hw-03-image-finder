@@ -1,17 +1,13 @@
 import { Component } from 'react';
 import { toast } from 'react-toastify';
 import { BiSearchAlt } from 'react-icons/bi';
-
 class Searchbar extends Component {
   state = { imageValue: '' };
-
   handleNameChange = event => {
     this.setState({ imageValue: event.currentTarget.value.toLowerCase() });
   };
-
   handleSubmit = event => {
     event.preventDefault();
-
     if (this.state.imageValue.trim() === '') {
       toast.error('Where are you imageValue?!');
       return;
@@ -19,7 +15,6 @@ class Searchbar extends Component {
     this.props.onSubmit(this.state.imageValue);
     this.setState({ imageValue: '' });
   };
-
   render() {
     return (
       <header className="searchbar">
@@ -36,8 +31,8 @@ class Searchbar extends Component {
             name="imageValue"
             value={this.state.imageValue}
             onChange={this.handleNameChange}
-            // autocomplete="off"
-            // autofocus
+            // autoComplete="off"
+            // autoFocus
             placeholder="Search images and photos"
           />
         </form>

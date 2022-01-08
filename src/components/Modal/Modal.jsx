@@ -1,7 +1,10 @@
-{
-  /* <div class="overlay">
+import React, { Component } from 'react';
+
+class ModalWindow extends Component {}
+
+export default ModalWindow;
+/* <div class="overlay">
   <div class="modal">
     <img src="" alt="" />
   </div>
 </div>; */
-}
