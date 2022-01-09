@@ -1,12 +1,12 @@
 import React from 'react';
-const Button = () => {
+
+const Button = ({ loadMoreImages, onClick }) => {
+  const handleClick = async () => {
+    await onClick();
+    loadMoreImages();
+  };
   return (
-    <button
-      type="button"
-      onClick={() => {
-        console.log('+1');
-      }}
-    >
+    <button type="button" onClick={handleClick}>
       Load more
     </button>
   );

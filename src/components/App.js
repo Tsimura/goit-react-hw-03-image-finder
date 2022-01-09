@@ -13,7 +13,6 @@ class App extends Component {
     currentPage: 1,
     loading: false,
     error: null,
-    status: 'idle',
   };
 
   handleFormSubmit = imageValue => {
@@ -23,22 +22,39 @@ class App extends Component {
   componentDidUpdate(prevProps, prevState) {
     const prevRequestValue = prevState.imageValue;
     const nextRequestValue = this.state.imageValue;
+    // const { images } = this.state;
 
     if (prevRequestValue !== nextRequestValue) {
       this.setState({ loading: true, images: [] });
-      imagesAPI
-        .fetchImages(nextRequestValue)
-        .then(images => {
-          console.log(images);
-          this.setState({ images: [...images.hits] });
-        })
-        .catch(error => this.setState({ error }))
-        .finally(() => this.setState({ loading: false }));
+      this.getImageFetch();
     }
+    // console.log(prevState.images.length !== images.length);
+    // if (prevState.images.length !== images.length) {
+    //   window.scrollTo({
+    //     top: document.documentElement.scrollHeight,
+    //     behavior: 'smooth',
+    //   });
+    // }
   }
 
+  getImageFetch = () => {
+    const { imageValue } = this.state;
+    imagesAPI
+      .fetchImages(imageValue, this.state.currentPage)
+      .then(images => {
+        console.log(images);
+        this.setState(prevState => ({
+          images: [...prevState.images, ...images.hits],
+        }));
+      })
+      .catch(error => this.setState({ error }))
+      .finally(() => this.setState({ loading: false }));
+  };
+
   setCurrentPage = () => {
-    this.setState(prevState => ({ currentPage: prevState.currentPage + 1 }));
+    this.setState(prevState => ({
+      currentPage: prevState.currentPage + 1,
+    }));
   };
 
   render() {
@@ -48,7 +64,12 @@ class App extends Component {
       <>
         <Searchbar onSubmit={this.handleFormSubmit} />
         {images.length > 0 && <ImageGallery images={images} />}
-        <Button onClick={this.setCurrentPage} />
+        {images.length > 0 && (
+          <Button
+            loadMoreImages={this.getImageFetch}
+            onClick={this.setCurrentPage}
+          />
+        )}
 
         {loading && <div>Loading...</div>}
         {error && <h1>{error.message}</h1>}
