@@ -1,14 +1,14 @@
 import React from 'react';
-
+import { LoadMoreBtn } from './Button.styled';
 const Button = ({ loadMoreImages, onClick }) => {
   const handleClick = async () => {
     await onClick();
     loadMoreImages();
   };
   return (
-    <button type="button" onClick={handleClick}>
+    <LoadMoreBtn type="button" onClick={handleClick}>
       Load more
-    </button>
+    </LoadMoreBtn>
   );
 };
 export default Button;

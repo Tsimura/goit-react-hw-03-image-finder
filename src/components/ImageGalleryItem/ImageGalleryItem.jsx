@@ -1,8 +1,9 @@
+import { GalleryItemWrapper } from './ImageGalleryItem.styled';
 const ImageGalleryItem = ({ webformatURL, largeImageURL, tags }) => {
   return (
-    <li>
-      <img src={webformatURL} alt={tags} style={{ width: '320px' }} />
-    </li>
+    <GalleryItemWrapper>
+      <img src={webformatURL} alt={tags} />
+    </GalleryItemWrapper>
   );
 };
 export default ImageGalleryItem;

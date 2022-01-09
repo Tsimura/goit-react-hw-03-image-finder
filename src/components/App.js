@@ -1,11 +1,13 @@
 import React, { Component } from 'react';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import ImageGrid from './Loader/Loader';
+import MyLoader from './Loader/Loader';
 import imagesAPI from '../services/images-api';
 import Searchbar from './Searchbar/Searchbar';
 import ImageGallery from './ImageGallery/ImageGallery';
 import Button from './Button/Button';
+import ModalWindow from './Modal/Modal';
+import { AppWrapper } from './App.styled';
 
 class App extends Component {
   state = {
@@ -14,29 +16,28 @@ class App extends Component {
     currentPage: 1,
     loading: false,
     error: null,
-  };
-
-  handleFormSubmit = imageValue => {
-    this.setState({ imageValue });
+    showModal: false,
   };
 
   componentDidUpdate(prevProps, prevState) {
     const prevRequestValue = prevState.imageValue;
     const nextRequestValue = this.state.imageValue;
-    // const { images } = this.state;
-
+    const { images } = this.state;
     if (prevRequestValue !== nextRequestValue) {
       this.setState({ loading: true, images: [] });
       this.getImageFetch();
     }
-    // console.log(prevState.images.length !== images.length);
-    // if (prevState.images.length !== images.length) {
-    //   window.scrollTo({
-    //     top: document.documentElement.scrollHeight,
-    //     behavior: 'smooth',
-    //   });
-    // }
+    if (prevState.images.length !== images.length) {
+      window.scrollTo({
+        top: document.documentElement.scrollHeight,
+        behavior: 'smooth',
+      });
+    }
   }
+
+  handleFormSubmit = imageValue => {
+    this.setState({ imageValue });
+  };
 
   getImageFetch = () => {
     const { imageValue } = this.state;
@@ -53,7 +54,7 @@ class App extends Component {
         })
         .catch(error => this.setState({ error }))
         .finally(() => this.setState({ loading: false }));
-    }, 2000);
+    }, 1000);
   };
 
   setCurrentPage = () => {
@@ -62,11 +63,15 @@ class App extends Component {
     }));
   };
 
+  showModal = () => {
+    this.setState(({ showModal }) => ({ showModal: !showModal }));
+  };
+
   render() {
-    const { loading, images, error } = this.state;
+    const { loading, images, error, showModal } = this.state;
 
     return (
-      <>
+      <AppWrapper>
         <Searchbar onSubmit={this.handleFormSubmit} />
         {images.length > 0 && <ImageGallery images={images} />}
         {images.length > 0 && (
@@ -76,11 +81,21 @@ class App extends Component {
           />
         )}
 
-        {loading && <ImageGrid />}
-        {error && <h1>{error.message}</h1>}
+        {loading && (
+          <MyLoader style={{ marginRight: 'auto', marginLeft: 'auto' }} />
+        )}
+        {error && <h2>Sorry, something went wrong: {error.message}</h2>}
 
         <ToastContainer position="top-center" autoClose={3000} />
-      </>
+        {showModal && (
+          <ModalWindow>
+            <img
+              src="https://pixabay.com/get/ga3ee93ed08ceb9221332226843ef72cac23efa1b482ec39bfdee0063bc4f0ca3b4334dd656ded542b80496d16fe9a167c9d99bc0ad7280d9eb29cbc8c672055f_640.png"
+              alt="cat"
+            />
+          </ModalWindow>
+        )}
+      </AppWrapper>
     );
   }
 }

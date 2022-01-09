@@ -1,6 +1,7 @@
 import { Component } from 'react';
 import { toast } from 'react-toastify';
 import { BiSearchAlt } from 'react-icons/bi';
+import { SearchbarWrapper, SearchFormWrapper } from './Searchbar.styled';
 class Searchbar extends Component {
   state = { imageValue: '' };
   handleNameChange = event => {
@@ -17,16 +18,12 @@ class Searchbar extends Component {
   };
   render() {
     return (
-      <header className="searchbar">
-        <form className="form" onSubmit={this.handleSubmit}>
-          <button type="submit" className="button">
-            <BiSearchAlt style={{ marginRight: 10 }} />
-            Search
+      <SearchbarWrapper>
+        <SearchFormWrapper onSubmit={this.handleSubmit}>
+          <button type="submit">
+            <BiSearchAlt size={30} color="#3f51b5" />
           </button>
-          <br />
-
           <input
-            className="input"
             type="text"
             name="imageValue"
             value={this.state.imageValue}
@@ -35,8 +32,8 @@ class Searchbar extends Component {
             // autoFocus
             placeholder="Search images and photos"
           />
-        </form>
-      </header>
+        </SearchFormWrapper>
+      </SearchbarWrapper>
     );
   }
 }
