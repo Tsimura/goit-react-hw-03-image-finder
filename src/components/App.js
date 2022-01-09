@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import ImageGrid from './Loader/Loader';
 import imagesAPI from '../services/images-api';
 import Searchbar from './Searchbar/Searchbar';
 import ImageGallery from './ImageGallery/ImageGallery';
@@ -39,16 +40,20 @@ class App extends Component {
 
   getImageFetch = () => {
     const { imageValue } = this.state;
-    imagesAPI
-      .fetchImages(imageValue, this.state.currentPage)
-      .then(images => {
-        console.log(images);
-        this.setState(prevState => ({
-          images: [...prevState.images, ...images.hits],
-        }));
-      })
-      .catch(error => this.setState({ error }))
-      .finally(() => this.setState({ loading: false }));
+
+    setTimeout(() => {
+      imagesAPI
+        .fetchImages(imageValue, this.state.currentPage)
+        .then(images => {
+          console.log(images);
+
+          this.setState(prevState => ({
+            images: [...prevState.images, ...images.hits],
+          }));
+        })
+        .catch(error => this.setState({ error }))
+        .finally(() => this.setState({ loading: false }));
+    }, 2000);
   };
 
   setCurrentPage = () => {
@@ -71,7 +76,7 @@ class App extends Component {
           />
         )}
 
-        {loading && <div>Loading...</div>}
+        {loading && <ImageGrid />}
         {error && <h1>{error.message}</h1>}
 
         <ToastContainer position="top-center" autoClose={3000} />
