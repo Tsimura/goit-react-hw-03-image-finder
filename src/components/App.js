@@ -12,6 +12,7 @@ import { AppWrapper } from './App.styled';
 class App extends Component {
   state = {
     imageValue: '',
+    largeImage: '',
     images: [],
     currentPage: 1,
     loading: false,
@@ -63,17 +64,33 @@ class App extends Component {
     }));
   };
 
-  showModal = () => {
-    this.setState(({ showModal }) => ({ showModal: !showModal }));
+  handleGalleryItemClick = largeImageURL => {
+    console.log('largeImageURL:', largeImageURL);
+    this.setState({
+      largeImage: largeImageURL,
+      showModal: true,
+    });
+  };
+
+  toggleModal = () => {
+    this.setState(prevState => ({
+      showModal: !prevState.showModal,
+      largeImage: '',
+    }));
   };
 
   render() {
-    const { loading, images, error, showModal } = this.state;
+    const { loading, images, largeImage, error, showModal } = this.state;
 
     return (
       <AppWrapper>
         <Searchbar onSubmit={this.handleFormSubmit} />
-        {images.length > 0 && <ImageGallery images={images} />}
+        {images.length > 0 && (
+          <ImageGallery
+            images={images}
+            onImageClick={this.handleGalleryItemClick}
+          />
+        )}
         {images.length > 0 && (
           <Button
             loadMoreImages={this.getImageFetch}
@@ -88,11 +105,8 @@ class App extends Component {
 
         <ToastContainer position="top-center" autoClose={3000} />
         {showModal && (
-          <ModalWindow>
-            <img
-              src="https://pixabay.com/get/ga3ee93ed08ceb9221332226843ef72cac23efa1b482ec39bfdee0063bc4f0ca3b4334dd656ded542b80496d16fe9a167c9d99bc0ad7280d9eb29cbc8c672055f_640.png"
-              alt="cat"
-            />
+          <ModalWindow onClose={this.toggleModal}>
+            <img src={largeImage} alt="cat" />
           </ModalWindow>
         )}
       </AppWrapper>

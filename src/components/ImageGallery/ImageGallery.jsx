@@ -2,7 +2,7 @@ import React from 'react';
 import ImageGalleryItem from 'components/ImageGalleryItem/ImageGalleryItem';
 import { ImageGalleryWrapper } from './ImageGallery.styled';
 
-const ImageGallery = ({ images }) => {
+const ImageGallery = ({ images, onImageClick }) => {
   return (
     <ImageGalleryWrapper>
       {images.map(({ id, webformatURL, largeImageURL, tags }) => (
@@ -11,6 +11,7 @@ const ImageGallery = ({ images }) => {
           webformatURL={webformatURL}
           largeImageURL={largeImageURL}
           tags={tags}
+          onImageClick={onImageClick}
         />
       ))}
     </ImageGalleryWrapper>
