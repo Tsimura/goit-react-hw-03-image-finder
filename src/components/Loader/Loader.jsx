@@ -1,4 +1,3 @@
-import React from 'react';
 import ContentLoader from 'react-content-loader';
 const MyLoader = props => (
   <ContentLoader
@@ -15,5 +14,4 @@ const MyLoader = props => (
     <circle cx="303" cy="60" r="20" />
   </ContentLoader>
 );
-
 export default MyLoader;

@@ -1,4 +1,3 @@
-import React from 'react';
 import { LoadMoreBtn } from './Button.styled';
 const Button = ({ loadMoreImages, onClick }) => {
   const handleClick = async () => {

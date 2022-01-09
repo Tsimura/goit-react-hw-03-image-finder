@@ -28,8 +28,8 @@ class Searchbar extends Component {
             name="imageValue"
             value={this.state.imageValue}
             onChange={this.handleNameChange}
-            // autoComplete="off"
-            // autoFocus
+            autoComplete="off"
+            autoFocus
             placeholder="Search images and photos"
           />
         </SearchFormWrapper>
@@ -37,7 +37,4 @@ class Searchbar extends Component {
     );
   }
 }
-
 export default Searchbar;
-
-// Убрать <br />? завйві консолі,змінні, що не використовуються!!!;

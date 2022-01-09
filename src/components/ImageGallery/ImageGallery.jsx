@@ -1,7 +1,5 @@
-import React from 'react';
 import ImageGalleryItem from 'components/ImageGalleryItem/ImageGalleryItem';
 import { ImageGalleryWrapper } from './ImageGallery.styled';
-
 const ImageGallery = ({ images, onImageClick }) => {
   return (
     <ImageGalleryWrapper>
@@ -17,5 +15,4 @@ const ImageGallery = ({ images, onImageClick }) => {
     </ImageGalleryWrapper>
   );
 };
-
 export default ImageGallery;
