@@ -72,16 +72,16 @@ class App extends Component {
       <AppWrapper>
         <Searchbar onSubmit={this.handleFormSubmit} />
         {showSearchResults > 0 && (
-          <ImageGallery
-            images={images}
-            onImageClick={this.handleGalleryItemClick}
-          />
-        )}
-        {showSearchResults > 0 && (
-          <Button
-            loadMoreImages={this.getImageFetch}
-            onClick={this.setCurrentPage}
-          />
+          <>
+            <ImageGallery
+              images={images}
+              onImageClick={this.handleGalleryItemClick}
+            />
+            <Button
+              loadMoreImages={this.getImageFetch}
+              onClick={this.setCurrentPage}
+            />
+          </>
         )}
         {loading && (
           <MyLoader style={{ marginRight: 'auto', marginLeft: 'auto' }} />
