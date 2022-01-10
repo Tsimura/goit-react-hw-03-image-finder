@@ -17,12 +17,9 @@ export const SearchbarWrapper = styled.div`
   box-shadow: 0px 2px 4px -1px rgba(0, 0, 0, 0.2),
     0px 4px 5px 0px rgba(0, 0, 0, 0.14), 0px 1px 10px 0px rgba(0, 0, 0, 0.12);
 `;
-
 export const SearchFormWrapper = styled.form`
   display: flex;
   align-items: center;
-  width: 100%;
-  max-width: 600px;
   background-color: #fff;
   border-radius: 3px;
   overflow: hidden;
@@ -31,7 +28,6 @@ export const SearchFormWrapper = styled.form`
     width: 48px;
     height: 48px;
     border: 0;
-    /* background-image: url('https://image.flaticon.com/icons/svg/149/149852.svg'); */
     background-size: 40%;
     background-repeat: no-repeat;
     background-position: center;
@@ -56,14 +52,19 @@ export const SearchFormWrapper = styled.form`
   }
   input {
     display: inline-block;
-    width: 100%;
+    max-width: 124px;
     font: inherit;
     font-size: 20px;
     border: none;
     outline: none;
     padding-left: 4px;
     padding-right: 4px;
-
+    transition: max-width 0.5s ease-in-out 0s;
+    &:hover,
+    &:focus {
+      max-width: 320px;
+      transition: max-width 0.5s ease-in-out 0s;
+    }
     &::placeholder {
       font: inherit;
       font-size: 18px;
