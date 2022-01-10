@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import { Component } from 'react';
 import { toast } from 'react-toastify';
 import { BiSearchAlt } from 'react-icons/bi';
@@ -37,4 +38,5 @@ class Searchbar extends Component {
     );
   }
 }
+Searchbar.propTypes = { onSubmit: PropTypes.func.isRequired };
 export default Searchbar;
