@@ -11,7 +11,7 @@ class Searchbar extends Component {
   handleSubmit = event => {
     event.preventDefault();
     if (this.state.imageValue.trim() === '') {
-      toast.error('Where are you imageValue?!');
+      toast.error('Enter the value of the request!');
       return;
     }
     this.props.onSubmit(this.state.imageValue);
