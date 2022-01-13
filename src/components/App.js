@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { ToastContainer } from 'react-toastify';
+import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import MyLoader from './Loader/Loader';
 import imagesAPI from '../services/images-api';
@@ -44,6 +44,9 @@ class App extends Component {
     imagesAPI
       .fetchImages(imageValue, this.state.currentPage)
       .then(images => {
+        if (images.hits.length === 0) {
+          toast.info('There is no result for your request!');
+        }
         this.setState(prevState => ({
           images: [...prevState.images, ...images.hits],
         }));
